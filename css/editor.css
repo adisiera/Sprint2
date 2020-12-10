@@ -1,18 +1,66 @@
-*{
+* {
     box-sizing: border-box;
 }
 
-
-@font-face{
+@font-face {
     font-family: Impact;
     src: url(../fonts/Impact-Font/impact.ttf);
 }
 
-body{
-    margin: 0;
-    background-color: thistle;
+@font-face {
+    font-family: Russo-One;
+    src: url(../fonts/Russo_One/RussoOne-Regular.ttf);
 }
 
-img{
+body {
+    margin: 0;
+    background-color: #d39ef2;
+    background-image: url(../img/food.png);
+}
+
+h1 {
+    text-align: center;
+    font-family: Russo-One;
+}
+
+img {
     z-index: -1;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-box {
+    height: 20vh;
+    width: 20vw;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* .meme-text{
+    cursor: help;
+} */
+
+.btn-container{
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-family: Russo-One;
+    cursor: pointer;
+}
+
+.canvas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

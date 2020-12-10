@@ -1,19 +1,24 @@
 'use strict';
+var xLocal;
+var yLocal;
 var gCanvas;
 var gCtx;
-var gCurrShape;
+var gCurrAction = {
+    size: 30,
+
+};
 var gMouseDown = false;
 
-
 function init() {
-    console.log('page is ready...');
+    // console.log('page is ready...');
     gCanvas = document.getElementById('meme-editor');
     gCtx = gCanvas.getContext('2d')
     window.addEventListener('resize', resizeCanvas)
     resizeCanvas()
-    drawImg2()
-    drawText('hola', 225, 225)
-    console.log(gMemes[0].lines[0].txt);
+    // drawImg2()
+    // drawText('hola', 225, 225)
+    // onDrawText()
+    renderCanvas()
 }
 
 function resizeCanvas() {
@@ -21,33 +26,55 @@ function resizeCanvas() {
     gCanvas.height = window.innerHeight * 0.75
 }
 
-function onMouseDown() {
-    gMouseDown = true;
+function renderCanvas(){
+    console.log('entered renderCanvas');
+    var img = new Image();
+    var imgId = gMemes[0].selectedImgId
+    img.src = `../img/${imgId}.jpg`;
+    img.onload = () => {
+        scaleToFit(img)
+        onDrawText()
+    }
 }
 
-function onMouseUp() {
-    gMouseDown = false
+
+function onAddText(){
+    console.log('went into onAddText');
+    // var memeText = document.querySelector('input[name=meme-txt]').value
+    var elMemeText = document.querySelector('input[name=meme-txt]')
+    var memeText = elMemeText.value
+    addText(memeText)
+    renderCanvas()
+}
+
+function onChangeSize(elBtn) {
+   
+    if (elBtn.innerText === '+') {
+       gCtx.font = `${++gCurrAction.size}px Impact`
+       renderCanvas()
+    }
+    else if (elBtn.innerText === '-') {
+        gCtx.font = `${--gCurrAction.size}px Impact`
+        renderCanvas()
+    }
 }
 
 
-function onDrawText(ev) {
-    // if (!gMouseDown) return;
-    const offsetX = ev.offsetX
-    const offsetY = ev.offsetY
-    var text = gMemes[0].lines[0].txt
+function onDrawText() {
+    console.log('went into onDrawText');
+    const offsetX = xLocal*0.5
+    const offsetY = gCanvas.height * 0.15
+    var text = getTextForDisplay()
     drawText(text, offsetX, offsetY)
 }
 
 function drawText(text, x, y) {
-    
     console.log('went into drawText');
     gCtx.lineWidth = '1.5'
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = 'white'
-    gCtx.font = '30px Impact'
-    // gCtx.font = 'italic small-caps 900 40px serif'
-    gCtx.textAlign = 'center'
-
+    gCtx.font = `${gCurrAction.size}px Impact`
+    // gCtx.textAlign = gMemes[0].lines[0].align
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
 }
@@ -55,7 +82,6 @@ function drawText(text, x, y) {
 
 function drawImg2() {
     var img = new Image();
-    // console.log(img)
     var imgId = gMemes[0].selectedImgId
     img.src = `../img/${imgId}.jpg`;
     img.onload = () => {
@@ -64,64 +90,11 @@ function drawImg2() {
 }
 
 function scaleToFit(img) {
-    // get the scale
     var scale = Math.min(gCanvas.width / img.width, gCanvas.height / img.height);
-    // get the top left position of the image
     var x = (gCanvas.width / 2) - (img.width / 2) * scale;
+    xLocal = x
     var y = (gCanvas.height / 2) - (img.height / 2) * scale;
+    yLocal = y
     gCtx.drawImage(img, 0, 0, img.width * scale, img.height * scale);
 }
-
-// function setShape(shape) {
-//     gCurrShape = shape
-// }
-
-// function draw(ev) {
-//     const offsetX = ev.offsetX
-//     const offsetY = ev.offsetY
-//     var text = gMemes[0].lines[0].txt
-//     console.log('offsetX', offsetX)
-//     // console.log('clientX', ev.clientX)
-//     // const { offsetX, offsetY } = ev
-
-//     drawText
-//     switch (gCurrShape) {
-//         case 'triangle':
-//             drawTriangle(offsetX, offsetY)
-//             break;
-//         case 'rect':
-//             drawRect(offsetX, offsetY)
-//             break;
-//         case 'text':
-//             drawText(text, offsetX, offsetY)
-//             break;
-//         case 'line':
-//             drawLine(offsetX, offsetY)
-//             break;
-//     }
-// }
-
-// function draw(ev) {
-//     const offsetX = ev.offsetX
-//     const offsetY = ev.offsetY
-//     var text = gMemes[0].lines[0].txt
-//     console.log('offsetX', offsetX)
-//     // console.log('clientX', ev.clientX)
-//     // const { offsetX, offsetY } = ev
-//     switch (gCurrShape) {
-//         case 'triangle':
-//             drawTriangle(offsetX, offsetY)
-//             break;
-//         case 'rect':
-//             drawRect(offsetX, offsetY)
-//             break;
-//         case 'text':
-//             drawText(text, offsetX, offsetY)
-//             break;
-//         case 'line':
-//             drawLine(offsetX, offsetY)
-//             break;
-//     }
-// }
-
 

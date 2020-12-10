@@ -11,7 +11,7 @@ function renderImgs() {
     var imgs = getImgsForDisplay()
     var strHTMLs = imgs.map(function (img) {
         return `<tr>
-                <td><img src="${img.url}" onclick="onSelectImg(${img.id})" class="img-${img.id}"/></td>
+                <td><img src="${img.url}" onclick="onSelectImg(${img.id})" class="grid-item"/></td>
                 `
     })
     var elImgTable = document.querySelector('.img-table')

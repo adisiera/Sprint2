@@ -4,60 +4,45 @@
 
 body {
     margin: 0;
-    background-color: lightskyblue;
+    background-color: #d39ef2;
+    background-image: url(../img/food.png)
 }
 
 h1 {
     color: linen;
     text-align: center;
+    font-family: Impact;
 }
 
 main {
     display: flex;
     justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
 
-.images {
-    height: 600px;
-    width: 600px;
+img{
+    height: 12rem;
+    width: 12rem;
 }
 
 
 .img-container {
-    background-color: #fff;
-    padding: 20px;
     display: flex;
-
-    /* display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    grid-gap: 1.2rem;
-    grid-template-areas: "img-1 img-2 img-3"; */
+    flex-wrap: wrap;
 }
 
+
+
 .img-table{
-    display: flex;
+    /* height: 100%; */
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
    
 }
 
-.img-1 {
-    /* grid-area: img-1; */
-    /* height: 100%; */
-    width: 100%;
-    object-fit: cover;
-}
-
-.img-2 {
-    /* grid-area: img-2; */
-    /* height: 50%; */
-    width: 100%;
-    object-fit: cover;
-}
-
-.img-3 {
-    /* grid-area: img-3; */
-    /* height: 50%; */
-    width: 100%;
+.grid-item{
+    border: 1px solid rgb(63, 17, 63);
     object-fit: cover;
 }

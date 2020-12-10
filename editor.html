@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" href="css/editor.css">
     <title>Image-Editor</title>
 </head>
+
 <body onload="init()">
     <h1>Meme Editor</h1>
-    
-    <div class="canvas-container">
-        <canvas id="meme-editor" height="600" width="450" onclick="onDrawText(event)"></canvas>
-    </div>
+    <main class="main-container">
+        <div class="canvas-container">
+            <canvas id="meme-editor" height="500" width="450"></canvas>
+        </div>
+        <div class="control-box">
+            <input onkeyup="onAddText()" type="text" id="meme-txt" name="meme-txt" placeholder="I can has...">
+            <div class="btn-container">
+                <button onclick="onChangeSize(this)">+</button>
+                <button onclick="onChangeSize(this)">-</button>
+                <button label="-" onclick="onSwitchLine()" class="btn-changes"><i class="fa fa-arrows-v" aria-hidden="true"></i></button>
+                <button onclick="onAddLine()" class="btn-changes"><i class="fab fa fa-plus"></i></button>
+                <button onclick="onRemoveLine()" class="btn-changes"><i class="fab fa fa-trash-alt"></i></button>
+            </div>
+        </div>
+    </main>
 
     <script src="js/galleryService.js"></script>
     <script src="js/galleryController.js"></script>
     <script src="js/editorService.js"></script>
     <script src="js/editorController.js"></script>
 </body>
+
 </html>
