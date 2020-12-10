@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/editor.css">
+    <title>Image-Editor</title>
+</head>
+<body onload="init()">
+    <h1>Meme Editor</h1>
+    
+    <div class="canvas-container">
+        <canvas id="meme-editor" height="600" width="450" onclick="onDrawText(event)"></canvas>
+    </div>
+
+    <script src="js/galleryService.js"></script>
+    <script src="js/galleryController.js"></script>
+    <script src="js/editorService.js"></script>
+    <script src="js/editorController.js"></script>
+</body>
+</html>

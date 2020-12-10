@@ -1,0 +1,18 @@
+*{
+    box-sizing: border-box;
+}
+
+
+@font-face{
+    font-family: Impact;
+    src: url(../fonts/Impact-Font/impact.ttf);
+}
+
+body{
+    margin: 0;
+    background-color: thistle;
+}
+
+img{
+    z-index: -1;
+}
