@@ -1,31 +1,22 @@
 'use strict';
-var xLocal;
-var yLocal;
 var gCanvas;
 var gCtx;
-var gCurrAction = {
-    size: 25,
-};
+// var gCurrAction = {
+//     size: 25,
+// };
 
 function init() {
     createMeme()
     gCanvas = document.getElementById('meme-editor');
     gCtx = gCanvas.getContext('2d')
-    // window.addEventListener('resize', resizeCanvas)
     renderCanvas()
-    // resizeCanvas()
 }
-
-// function resizeCanvas() {
-//     gCanvas.width = window.innerWidth * 0.65
-//     gCanvas.height = window.innerHeight * 0.65
-// }
 
 function renderCanvas() {
     const meme = getMeme()
     const img = new Image();
     var imgId = memeImgId
-    img.src = `../img/${imgId}.jpg`
+    img.src = `img/${imgId}.jpg`
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
         meme.lines.forEach(line => drawText(line))
