@@ -4,31 +4,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" href="css/editor.css">
     <title>Image-Editor</title>
 </head>
 
 <body onload="init()">
-    <h1>Meme Editor</h1>
+    <div class="screen" onclick="onToggleMenu()"></div>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">Make Your Meme!</div>
+            <ul class="main-nav clean-list">
+                <li class="nav-item"><a href="index.html">Gallery</a></li>
+                <li class="nav-item"><a href="#memes">Memes</a></li>
+                <li class="nav-item"><a href="#about">About</a></li>
+            </ul>
+            <div class="mobile-menu-close" onclick="onToggleClose()" hidden>x</div>
+            <div class="mobile-menu-btn" onclick="onToggleMenu()">☰</div>
+        </div>
+    </header>
     <main class="main-container">
         <div class="canvas-container">
-            <canvas id="meme-editor" height="500" width="450"></canvas>
+            <canvas id="meme-editor" height="500" width="500"></canvas>
         </div>
         <div class="control-box">
-            <input onkeyup="onAddText()" type="text" id="meme-txt" name="meme-txt" placeholder="I can has...">
+            <input onkeyup="onAddText()" type="text" class="meme-txt" name="meme-txt" placeholder="I can has...">
+            <select class="font-change" onchange="onChangeFont(this.value)">
+                <option value="Impact" class="font-type">Impact</option>
+                <option value="Monospace" class="font-type">Monospace</option>
+                <option value="Comic-Sans" class="font-type">Comic-Sans</option>
+                <option value="Verdana" class="font-type">Verdana</option>
+            </select>
             <div class="btn-container">
-                <button onclick="onChangeSize(this)">+</button>
-                <button onclick="onChangeSize(this)">-</button>
-                <button label="-" onclick="onSwitchLine()" class="btn-changes"><i class="fa fa-arrows-v" aria-hidden="true"></i></button>
-                <button onclick="onAddLine()" class="btn-changes"><i class="fab fa fa-plus"></i></button>
-                <button onclick="onRemoveLine()" class="btn-changes"><i class="fab fa fa-trash-alt"></i></button>
+                <button label="increase" onclick="onChangeSize('+')"><img src="./ICONS/increase font - icon.png" class="icon" /></button>
+                <button label="decrease" onclick="onChangeSize('-')"><img src="./ICONS/decrease font - icon.png" class="icon" /></button>
+                <button label="align-left" onclick="onChangeTextAlign('align-left')" class="btn-changes"><img src="./ICONS/align-to-left.png" class="icon" /></button>
+                <button label="align-center" onclick="onChangeTextAlign('align-center')" class="btn-changes"><img src="./ICONS/center-text-alignment.png" class="icon" /></button>
+                <button label="align-right" onclick="onChangeTextAlign('align-right')" class="btn-changes"><img src="./ICONS/align-to-right.png" class="icon" /></button>
+                <button><label for="fill-color"><img src="./ICONS/fill-solid.svg" class="icon" /></label>
+                    <input type="color" id="fill-color" onchange="onChangeFillColor(this.value)" hidden></button>
+                <button><label for="stroke-color"><img src="./ICONS/paint-brush-solid.svg" class="icon" /></label>
+                    <input type="color" id="stroke-color" onchange="onChangeStrokeColor(this.value)" hidden></button>
+                <button label="switch" onclick="onSwitchLine()" class="btn-changes"><img src="./ICONS/up-and-down-opposite-double-arrows-side-by-side.png" class="icon" /></button>
+                <button label="add" onclick="onAddLine()" class="btn-changes"><img src="./ICONS/add.png" class="icon" /></button>
+                <button label="remove" onclick="onRemoveLine()" class="btn-changes"><img src="./ICONS/trash.png" class="icon" /></button>
+                <button label="move-up" onclick="onChangeTextAlign('move-up')" class="btn-changes"><img src="./ICONS/long-arrow-alt-up-solid.svg" class="icon" /></button>
+                <button label="move-down" onclick="onChangeTextAlign('move-down')" class="btn-changes"><img src="./ICONS/long-arrow-alt-down-solid.svg" class="icon" /></button>
+                <button label="download" onclick="onDownloadMeme(this)" class="btn-changes"><a href="#" onclick="onDownloadMeme(this)" download="my-meme.jpg"><img src="./ICONS/download-solid.svg" class="icon" /></a></button>
+                <button label="save-online" onclick="onSaveMeme()" class="btn-changes">save</button>
             </div>
         </div>
     </main>
 
+    <footer class="main-footer" id="about">
+        <nav class="social-container container">
+            <img class="my-img" src="./img/adi.jpeg" />
+            <div class="my-info">
+                <h3>Adi Sieradzki</h3>
+                <p>Adi used to love memes. Now she wishes they never existed.
+                </p>
+            </div>
+
+            <ul class="social-footer clean-list">
+                <li class="social-facebook">
+                    <a href="https://www.facebook.com/adi.sieradzki.3/" target="_blank">
+                        <img src="./ICONS/facebook-logo.png" class="soc-icon" />
+                    </a>
+                </li>
+                <li class="social-linkedin">
+                    <a href="https://www.linkedin.com/in/adi-sieradzki-4518b8a/" target="_blank">
+                        <img src="./ICONS/linkedin-logo.png" class="soc-icon" />
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="end-footer">
+            <div class="footer-logo">
+                <div class="logo">Make Your Meme!</div>
+            </div>
+            <small>© all rights 2020- All Rights Reserved</small>
+        </div>
+
+    </footer>
+
     <script src="js/galleryService.js"></script>
     <script src="js/galleryController.js"></script>
+    <script src="js/editorStorage.js"></script>
     <script src="js/editorService.js"></script>
     <script src="js/editorController.js"></script>
 </body>

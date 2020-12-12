@@ -7,7 +7,19 @@
     <title>Image-Gallery</title>
 </head>
 <body onload="init()">
-    <h1>Pick an Image</h1>
+    <div class="screen" onclick="onToggleMenu()"></div>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">Make Your Meme!</div>
+            <ul class="main-nav clean-list">
+                <li class="nav-item"><a href="index.html">Gallery</a></li>
+                <li class="nav-item"><a href="#memes">Memes</a></li>
+                <li class="nav-item"><a href="#about">About</a></li>
+            </ul>
+            <div class="mobile-menu-close" onclick="onToggleClose()" hidden>x</div>
+            <div class="mobile-menu-btn" onclick="onToggleMenu()">☰</div>
+        </div>
+    </header>
     <main class="gallery">
         <section class="search"></section>
         <section class="images">
@@ -17,12 +29,38 @@
                </table>
             </div>
         </section>
-
     </main>
-    
+    <footer class="main-footer" id="about">
+        <nav class="social-container container">
+            <img class="my-img" src="./img/adi.jpeg" />
+            <div class="my-info">
+                <h3>Adi Sieradzki</h3>
+                <p>Adi used to love memes. Now she wishes they never existed.
+                </p>
+            </div>
+            <ul class="social-footer clean-list">
+                <li class="social-facebook">
+                    <a href="https://www.facebook.com/adi.sieradzki.3/" target="_blank">
+                        <img src="./ICONS/facebook-logo.png" class="soc-icon" />
+                    </a>
+                </li>
+                <li class="social-linkedin">
+                    <a href="https://www.linkedin.com/in/adi-sieradzki-4518b8a/" target="_blank">
+                        <img src="./ICONS/linkedin-logo.png" class="soc-icon" />
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="end-footer">
+            <div class="footer-logo">
+                <div class="logo">Make Your Meme!</div>
+            </div>
+            <small>© all rights 2020- All Rights Reserved</small>
+        </div>
+    </footer>
+
     
   
-    <script src="js/galleryStorage.js"></script>
     <script src="js/galleryService.js"></script>
     <script src="js/galleryController.js"></script>
     

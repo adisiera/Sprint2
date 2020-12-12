@@ -4,97 +4,137 @@ var yLocal;
 var gCanvas;
 var gCtx;
 var gCurrAction = {
-    size: 30,
-
+    size: 25,
 };
-var gMouseDown = false;
 
 function init() {
-    // console.log('page is ready...');
+    createMeme()
     gCanvas = document.getElementById('meme-editor');
     gCtx = gCanvas.getContext('2d')
-    window.addEventListener('resize', resizeCanvas)
-    resizeCanvas()
-    // drawImg2()
-    // drawText('hola', 225, 225)
-    // onDrawText()
+    // window.addEventListener('resize', resizeCanvas)
     renderCanvas()
+    // resizeCanvas()
 }
 
-function resizeCanvas() {
-    gCanvas.width = window.innerWidth * 0.75
-    gCanvas.height = window.innerHeight * 0.75
-}
+// function resizeCanvas() {
+//     gCanvas.width = window.innerWidth * 0.65
+//     gCanvas.height = window.innerHeight * 0.65
+// }
 
-function renderCanvas(){
-    console.log('entered renderCanvas');
-    var img = new Image();
-    var imgId = gMemes[0].selectedImgId
-    img.src = `../img/${imgId}.jpg`;
+function renderCanvas() {
+    const meme = getMeme()
+    const img = new Image();
+    var imgId = memeImgId
+    img.src = `../img/${imgId}.jpg`
     img.onload = () => {
-        scaleToFit(img)
-        onDrawText()
+        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+        meme.lines.forEach(line => drawText(line))
     }
 }
 
+function onToggleMenu() {
+    document.body.classList.toggle('menu-open');
+    document.querySelector('.mobile-menu-close').hidden = !document.querySelector('.mobile-menu-close').hidden;
+    document.querySelector('.mobile-menu-btn').hidden = !document.querySelector('.mobile-menu-btn').hidden;
+}
 
-function onAddText(){
-    console.log('went into onAddText');
-    // var memeText = document.querySelector('input[name=meme-txt]').value
+function onToggleClose() {
+    document.querySelector('.mobile-menu-close').hidden = true;
+    document.querySelector('.mobile-menu-btn').hidden = false;
+    document.body.classList.toggle('menu-open');
+}
+
+
+function onSaveMeme(){
+    console.log('went into onSaveMeme');
+    getMemeToSave()
+    
+}
+
+function onDownloadMeme(elLink) {
+    const memeImg = gCanvas.toDataURL('image/jpg')
+    elLink.href = memeImg;
+    elLink.download = 'my-meme.jpg'
+}
+
+function onChangeTextAlign(elBtn) {
+    console.log('entered onChangeTextAlign');
+    changeTextAlign(elBtn)
+    renderCanvas()
+}
+
+function onChangeStrokeColor(color) {
+    console.log('entered onChangeStrokeColor', color);
+    changeStrokeColor(color);
+    renderCanvas();
+}
+function onChangeFillColor(color) {
+    console.log('entered onChangeFillColor', color);
+    changeFillColor(color);
+    renderCanvas();
+}
+
+function onChangeFont(font) {
+    changeFont(font)
+    renderCanvas();
+}
+
+
+function onRemoveLine() {
+    removeLine();
+    document.querySelector('.meme-txt').value = '';
+    renderCanvas();
+}
+
+function onSwitchLine() {
+    var meme = getMeme();
+    document.querySelector('.meme-txt').value = meme.lines[meme.selectedLineIdx].txt;
+    switchLines()
+    renderCanvas();
+}
+
+function onAddLine() {
+
+    const meme = getMeme();
+    meme.selectedLineIdx++;
+    var x = gCanvas.width / 2
+    var y;
+    if (meme.lines.length === 0) y = 100
+    if (meme.lines.length === 1) y = (gCanvas.height - 100)
+    if (meme.lines.length >= 2) y = (gCanvas.height / 2);
+    addLine('add your second line here', x, y)
+    document.querySelector('input[name=meme-txt]').value = '';
+    drawText(meme.lines[meme.lines.length - 1]);
+    renderCanvas();
+}
+
+function onAddText() {
+    var meme = getMeme();
     var elMemeText = document.querySelector('input[name=meme-txt]')
     var memeText = elMemeText.value
     addText(memeText)
     renderCanvas()
 }
 
-function onChangeSize(elBtn) {
-   
-    if (elBtn.innerText === '+') {
-       gCtx.font = `${++gCurrAction.size}px Impact`
-       renderCanvas()
+function onChangeSize(val) {
+    if (val === '+') {
+        gMemes.lines[gMemes.selectedLineIdx].size += 2
     }
-    else if (elBtn.innerText === '-') {
-        gCtx.font = `${--gCurrAction.size}px Impact`
-        renderCanvas()
+    else if (val === '-') {
+        gMemes.lines[gMemes.selectedLineIdx].size -= 2
     }
+    renderCanvas()
 }
 
-
-function onDrawText() {
-    console.log('went into onDrawText');
-    const offsetX = xLocal*0.5
-    const offsetY = gCanvas.height * 0.15
-    var text = getTextForDisplay()
-    drawText(text, offsetX, offsetY)
-}
-
-function drawText(text, x, y) {
-    console.log('went into drawText');
+function drawText(line) {
+    gCtx.beginPath()
     gCtx.lineWidth = '1.5'
-    gCtx.strokeStyle = 'black'
-    gCtx.fillStyle = 'white'
-    gCtx.font = `${gCurrAction.size}px Impact`
-    // gCtx.textAlign = gMemes[0].lines[0].align
-    gCtx.fillText(text, x, y)
-    gCtx.strokeText(text, x, y)
+    gCtx.strokeStyle = line.strokeColor
+    gCtx.fillStyle = line.color
+    gCtx.font = line.size + 'px' + ' ' + line.fontFamily;
+    gCtx.textAlign = line.align;
+    gCtx.fillText(line.txt, line.x, line.y)
+    gCtx.strokeText(line.txt, line.x, line.y)
 }
 
-
-function drawImg2() {
-    var img = new Image();
-    var imgId = gMemes[0].selectedImgId
-    img.src = `../img/${imgId}.jpg`;
-    img.onload = () => {
-        scaleToFit(img)
-    }
-}
-
-function scaleToFit(img) {
-    var scale = Math.min(gCanvas.width / img.width, gCanvas.height / img.height);
-    var x = (gCanvas.width / 2) - (img.width / 2) * scale;
-    xLocal = x
-    var y = (gCanvas.height / 2) - (img.height / 2) * scale;
-    yLocal = y
-    gCtx.drawImage(img, 0, 0, img.width * scale, img.height * scale);
-}
 

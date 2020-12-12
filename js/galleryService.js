@@ -72,6 +72,16 @@ function _createImgs(){
                 id:13,
                 url: '../img/13.jpg',
                 keywords: ['toy']
+            },
+            {
+                id:14,
+                url: '../img/14.jpg',
+                keywords: ['man']
+            },
+            {
+                id:15,
+                url: '../img/15.jpg',
+                keywords: ['man']
             }
         ];
     // }
@@ -96,10 +106,7 @@ function getImgById(imgId) {
 
 function selectImg(imgId){
     console.log('I got picked!');
-//    getMemeImgById(imgId)
-//    _saveImgToStorage()
     var memeImgId = imgId.toString()
-    // console.log('memeImgId',memeImgId);
     sessionStorage.setItem('memeImgId',memeImgId)
 
     window.location = 'editor.html'
