@@ -4,98 +4,90 @@ var gImgs;
 
 
 function _createImgs(){
-    // var imgs = loadFromStorage(IMG_KEY)
-    // if (!imgs || !imgs.length){
         var imgs = 
         [
             {
                 id: 1,
-                url: '../img/1.jpg',
+                url: 'img/1.jpg',
                 keywords: ['cat']
             },
             {
                 id: 2,
-                url: '../img/2.jpg',
+                url: 'img/2.jpg',
                 keywords: ['man']
             },
             {
                 id: 3,
-                url: '../img/3.jpg',
+                url: 'img/3.jpg',
                 keywords: ['man']
             },
             {
                 id:4,
-                url: '../img/4.jpg',
+                url: 'img/4.jpg',
                 keywords: ['dog']
             },
             {
                 id:5,
-                url: '../img/5.jpg',
+                url: 'img/5.jpg',
                 keywords: ['kid']
             },
             {
                 id:6,
-                url: '../img/6.jpg',
+                url: 'img/6.jpg',
                 keywords: ['man']
             },
             {
                 id:7,
-                url: '../img/7.jpg',
+                url: 'img/7.jpg',
                 keywords: ['kid']
             },
             {
                 id:8,
-                url: '../img/8.jpg',
+                url: 'img/8.jpg',
                 keywords: ['kid']
             },
             {
                 id:9,
-                url: '../img/9.jpg',
+                url: 'img/9.jpg',
                 keywords: ['kid']
             },
             {
                 id:10,
-                url: '../img/10.jpg',
+                url: 'img/10.jpg',
                 keywords: ['man']
             },
             {
                 id:11,
-                url: '../img/11.jpg',
+                url: 'img/11.jpg',
                 keywords: ['man']
             },
             {
                 id:12,
-                url: '../img/12.jpg',
+                url: 'img/12.jpg',
                 keywords: ['man']
             },
             {
                 id:13,
-                url: '../img/13.jpg',
+                url: 'img/13.jpg',
                 keywords: ['toy']
             },
             {
                 id:14,
-                url: '../img/14.jpg',
+                url: 'img/14.jpg',
                 keywords: ['man']
             },
             {
                 id:15,
-                url: '../img/15.jpg',
+                url: 'img/15.jpg',
                 keywords: ['man']
             }
         ];
-    // }
     gImgs = imgs
-    // _saveImgToStorage()
 }
 
 function getImgsForDisplay(){
     return gImgs;
 }
-
-// function getImgToSave(){
-// _saveImgToStorage()
-// }
 
 function getImgById(imgId) {
     var img = gImgs.find(function (img) {
@@ -111,10 +103,6 @@ function selectImg(imgId){
 
     window.location = 'editor.html'
 }
-
-// function _saveImgToStorage(){
-//     saveToStorage(IMG_KEY,gImgs)
-// }
 
 
 function getRandomIntInclusive(min, max) {
