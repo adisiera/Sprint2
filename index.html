@@ -13,9 +13,15 @@
             <div class="logo">Make Your Meme!</div>
             <ul class="main-nav clean-list">
                 <li class="nav-item"><a href="index.html">Gallery</a></li>
-                <li class="nav-item"><a href="#memes">Memes</a></li>
+                <li class="nav-item"><a href="#" id="memes-modal">Memes</a></li>
                 <li class="nav-item"><a href="#about">About</a></li>
             </ul>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                   <div class="saved-memes"></div>
+                </div>
+            </div>
             <div class="mobile-menu-close" onclick="onToggleClose()" hidden>x</div>
             <div class="mobile-menu-btn" onclick="onToggleMenu()">☰</div>
         </div>
@@ -61,6 +67,10 @@
 
     
   
+    
+    <script src="js/editorStorage.js"></script>
+    <script src="js/editorService.js"></script>
+    <script src="js/editorController.js"></script>
     <script src="js/galleryService.js"></script>
     <script src="js/galleryController.js"></script>
     

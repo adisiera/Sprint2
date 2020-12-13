@@ -137,10 +137,12 @@ body {
     text-transform: capitalize;
 }
 
+/* THAT DAMN MEMES MODAL */
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 3; /* Sit on top */
     padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
@@ -151,7 +153,6 @@ body {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
   
-  /* Modal Content */
   .modal-content {
     background-color: rgb(242, 221, 245);
     margin: auto;
@@ -161,7 +162,6 @@ body {
     height: 50%;
   }
   
-  /* The Close Button */
   .close {
     color: #aaaaaa;
     float: right;
@@ -182,7 +182,7 @@ body {
       grid-template-rows: 1fr 1fr 1fr;
   }
 
-  .saved-memes img{
+  .grid-item-img img{
     height: 12rem;
     width: 12rem;
   }
@@ -245,10 +245,6 @@ input {
     border-color: rgb(235, 163, 235);
 }
 
-/* .btn-changes {
-    /* flex-grow: 1; */
-    /* grid-area: btn-changes; */
-
 .save-btn {
     font-size: 1.6rem;
     grid-column: span 2;
@@ -257,11 +253,9 @@ input {
 .font-change {
     padding: 0.5rem;
     width: 8rem;
-    /* margin-left: 1.2rem; */
     margin-top: 1rem;
     border-color: rgb(235, 163, 235);
     font-size: 1rem;
-    /* grid-area: font-change; */
 }
 
 .icon {
@@ -383,6 +377,20 @@ input {
     .main-header li {
         border-bottom: 1px solid #dcdcdc;
     }
+    .modal-content{
+        height: 85%;
+        width: 60%;
+    }
+
+    .saved-memes{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+    .grid-item-img img{
+        height: 6rem;
+        width: 6rem;
+      }
     .main-nav {
         flex-direction: column-reverse;
         justify-content: flex-start;

@@ -61,7 +61,7 @@ function onGetSavedMemes() {
     console.log('memes',memes);
 
     var strHTMLs = memes.map((meme) => {
-        return `<div class="grid-item">
+        return `<div class="grid-item-img">
                 <img src="${meme.memeUrl}" />
                 </div>`
     })
