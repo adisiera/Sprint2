@@ -1,9 +1,10 @@
 'use strict';
 var gCanvas;
 var gCtx;
-// var gCurrAction = {
-//     size: 25,
-// };
+var elMemeModal = document.getElementById("myModal");
+var elModalBtn = document.getElementById("memes-modal");
+var elModalSpan = document.getElementsByClassName("close")[0];
+
 
 function init() {
     createMeme()
@@ -35,15 +36,60 @@ function onToggleClose() {
     document.body.classList.toggle('menu-open');
 }
 
+// When the user clicks the button, open the modal 
+elModalBtn.onclick = function () {
+    elMemeModal.style.display = "block";
+    onGetSavedMemes()
+}
 
-function onSaveMeme(){
+// When the user clicks on <span> (x), close the modal
+elModalSpan.onclick = function () {
+    elMemeModal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target === elMemeModal) {
+        elMemeModal.style.display = "none";
+    }
+}
+
+
+function onGetSavedMemes() {
+    console.log('entered onGetSavedMemes');
+    var memes = getSavedMemes()
+    console.log('memes',memes);
+
+    var strHTMLs = memes.map((meme) => {
+        return `<div class="grid-item">
+                <img src="${meme.memeUrl}" />
+                </div>`
+    })
+    var elSavedMemes = document.querySelector('.saved-memes');
+    elSavedMemes.innerHTML = strHTMLs.join('');
+}
+
+// function onMemeClick(memeImgId,meme=null){
+//     if (!meme) meme = gMemes
+//     const img = new Image();
+//     var imgId = memeImgId
+//     img.src = `${meme}`
+//     img.onload = () => {
+//         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+//         meme.lines.forEach(line => drawText(line))
+//     }
+// }
+
+function onSaveMeme() {
+    var memeUrl = gCanvas.toDataURL('image/jpg')
     console.log('went into onSaveMeme');
-    getMemeToSave()
-    
+    getMemeToSave(memeUrl)
+
 }
 
 function onDownloadMeme(elLink) {
     const memeImg = gCanvas.toDataURL('image/jpg')
+    // console.log('memeImg',memeImg);
     elLink.href = memeImg;
     elLink.download = 'my-meme.jpg'
 }
@@ -122,6 +168,7 @@ function drawText(line) {
     gCtx.lineWidth = '1.5'
     gCtx.strokeStyle = line.strokeColor
     gCtx.fillStyle = line.color
+    // gCtx.fillStyle = 'red'
     gCtx.font = line.size + 'px' + ' ' + line.fontFamily;
     gCtx.textAlign = line.align;
     gCtx.fillText(line.txt, line.x, line.y)

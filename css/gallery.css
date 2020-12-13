@@ -12,6 +12,11 @@ body {
 /* FONTS */
 
 @font-face {
+    font-family: Impact;
+    src: url(../fonts/Impact-Font/impact.ttf);
+}
+
+@font-face {
     font-family: Bungee_Shade;
     src: url(../fonts/Bungee_Shade/BungeeShade-Regular.ttf);
 }

@@ -1,14 +1,27 @@
 'use strict';
 const SAVE_KEY = 'memes';
+
 var memeImgId = parseInt(sessionStorage.getItem('memeImgId'))
 var gMemes = [];
-var gSavedMemes = []
+var gSavedMemes = [];
 
 //LIST
 
+function getSavedMemes(){
+    console.log('entered getSavedMemes');
+    var memes = loadFromStorage(SAVE_KEY)
+    return memes
+}
 
-function getMemeToSave(){
-    saveToStorage(SAVE_KEY, gMemes)
+function getMemeToSave(url){
+    var memes = loadFromStorage(SAVE_KEY)
+    gMemes.memeUrl = url
+    if (!memes || !memes.length){
+       saveToStorage(SAVE_KEY, [gMemes])   
+    } else {
+        memes.push(gMemes)
+        saveToStorage(SAVE_KEY, memes)
+    }
 }
 
 // DELETE
@@ -24,7 +37,7 @@ function removeLine(){
 
 function switchLines() {
     if (!getLines().length) return;
-    gMemes.selectedLineIdx += 1;
+    gMemes.selectedLineIdx++;
     if (gMemes.selectedLineIdx >= gMemes.lines.length) {
         gMemes.selectedLineIdx = 0;
     }
